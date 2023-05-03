@@ -1,16 +1,13 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
 
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
 
 name: Java CI with Maven
 on:
-  schedule:
-    - cron: '*/10 * * * *'
-  workflow_dispatch:
+  
+  push:
+    branches: [main]
+
+
+
 jobs:
   build:
     runs-on: windows-latest
@@ -27,4 +24,22 @@ jobs:
       - name: Build with Maven
         run: mvn clean test
 
+      - name: mail
+        uses: dawidd6/action-send-mail@v2
+        with:
+        # mail server settings
+         server_address: smtp.gmail.com
+         server_port: 465
+        # user credentials
+         username: ${{ secrets.EMAIL_USERNAME }}
+         password: ${{ secrets.EMAIL_PASSWORD }}
+        # email subject
+         subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+        # email body as text
+         body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+        # comma-separated string, send email to
+         to: johndoe@gmail.com,doejohn@gmail.com
+        # from email name
+         from: John Doe
+  
 
