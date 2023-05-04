@@ -34,7 +34,7 @@ jobs:
          subject: correciones a ${{github.repository}}
          body: Build job of ${{github.repository}} completed successfully!
    
-         html_body: file://README.html
+       
          from: ${{ secrets.EMAIL_FROM }}
          to: ${{ secrets.EMAIL_RECIVER }}
          is-tls: false
