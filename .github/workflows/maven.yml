@@ -25,14 +25,15 @@ jobs:
         run: mvn clean test
         
       - name: Send email
-        uses: dawidd6/action-send-mail@v3.6.0
+        uses: AlexisMateo/sendmail-action@5
         with:
          smtp-server: ${{ secrets.SMTP_SERVER }}
          smtp-server-port: ${{ secrets.SMTP_SERVER_PORT }}
          auth-user: ${{ secrets.AUTH_USER }}
          auth-password: ${{secrets.EMAIL_PASSWORD }}
          subject: correciones a ${{github.repository}}
-         body: Build job of ${{github.repository}} completed successfully!
+         body: ${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} 
+          is ${{ job.status }}
    
        
          from: ${{ secrets.EMAIL_FROM }}
