@@ -25,7 +25,7 @@ jobs:
         run: mvn clean test
         
       - name: Send email
-        uses: AlexisMateo/sendmail-action@5
+        uses: dawidd6/action-send-mail@v3.6.0
         with:
          smtp-server: ${{ secrets.SMTP_SERVER }}
          smtp-server-port: ${{ secrets.SMTP_SERVER_PORT }}
